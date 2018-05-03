@@ -6,6 +6,8 @@
 
 The core idea is the *single source of truth*
 
+[[./docs/why-redux.jpg]]
+
 
 ** Action
 
@@ -59,7 +61,6 @@ Reducer is a JavaScript function that takes (previous state, action) and returns
       }
   }
 #+END_SRC
-
 
 ** Store
 
