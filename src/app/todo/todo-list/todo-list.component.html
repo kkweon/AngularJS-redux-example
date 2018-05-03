@@ -1,0 +1,8 @@
+<h2>Todo List</h2>
+
+<ul>
+    <todo-item ng-repeat="todo in $ctrl.todos track by todo.description + todo.id"
+               todo="todo"
+               on-delete="$ctrl.deleteTodo(todo)"
+               on-edit="$ctrl.updateTodo(todo)"></todo-item>
+</ul>

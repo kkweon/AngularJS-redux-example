@@ -1,0 +1,8 @@
+<li ng-if="!$ctrl.editMode">
+  {{ $ctrl.todo.description }} - {{ $ctrl.todo.creator }} - <button ng-click="$ctrl.onClickDelete()">Delete</button> <button ng-click="$ctrl.toggleEditMode()">Edit</button>
+</li>
+
+
+<li ng-if="$ctrl.editMode">
+  <todo-form form-data="$ctrl.todo" on-submit="$ctrl.onClickEdit(formData)"></todo-form>
+</li>

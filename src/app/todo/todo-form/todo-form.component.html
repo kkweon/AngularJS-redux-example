@@ -1,0 +1,22 @@
+<form name="$ctrl.todoForm"
+      ng-submit="$ctrl.onSubmitPrivate($event)">
+
+    <label for="todoFormDescription">Todo Item</label>
+    <input id="todoFormDescription"
+           required
+           name="description"
+           type="text"
+           placeholder="Your todo"
+           ng-model="$ctrl.formData.description" />
+
+    <label for="todoFormCreator">Created by</label>
+    <input id="todoFormCreator"
+           required
+           name="creator"
+           type="text"
+           placeholder="Mo Kweon"
+           ng-model="$ctrl.formData.creator" />
+
+    <button type="submit"
+            ng-disabled="$ctrl.todoForm.$pristine || $ctrl.todoForm.$invalid">Create</button>
+</form>
