@@ -16,7 +16,7 @@ const mockTodoItems = [
 export default function(state = mockTodoItems, action) {
     switch (action.type) {
         case actionTypes.TODO_ADD: {
-            const id = state.length + 1,
+            const id = Date.now(),
                 todoItem = {
                     id,
                     ...action.payload,

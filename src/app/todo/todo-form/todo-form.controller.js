@@ -27,7 +27,7 @@ export default class FormController {
         }
 
         // clean form
-        this.formData = cleanForm;
+        this.formData = { ...cleanForm };
     }
 
     $onDestroy() {
