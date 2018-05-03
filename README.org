@@ -1,0 +1,145 @@
+#+TITLE: AngularJS + Redux
+
+* What is Redux?
+
+> Redux is a predictable state container for JavaScript apps.
+
+The core idea is the *single source of truth*
+
+
+** Action
+
+Action is a JavaScript object.
+
+#+BEGIN_SRC javascript
+  {
+      type: "ADD_TODO",
+      payload: {
+          content: "Todo Content blah blah",
+          creator: "creator who who"
+      }
+  }
+#+END_SRC
+
+** Action Dispatcher/Creator
+
+Pure function that returns an "action"
+
+#+BEGIN_SRC javascript
+  function addTodo(todo) {
+      return {
+          type: "ADD_TODO",
+          payload: todo,
+      };
+  }
+#+END_SRC
+
+** Reducer
+
+Reducer is a JavaScript function that takes (previous state, action) and returns a new state.
+
+- it has to be a pure function
+
+#+BEGIN_SRC javascript
+  function TodoReducer(previousState = [], action) {
+      switch (action.type) {
+          case "ADD_TODO":
+              return [...previousState, action.paylod];
+
+          case "DELETE_TODO":
+              // ...
+              return;
+
+          case "UPDATE_TODO":
+              // ...
+              return;
+
+          default:
+              return previousState;
+      }
+  }
+#+END_SRC
+
+
+** Store
+
+The store is the object that brings everything together.
+
+- Holds application state
+- Allows access to state via ~getState()~
+- Allows state to be updated via ~dispatch(action)~
+- Registers listeners via ~subscribe(listener)~
+- Handles unregistering of listeners via the function returned by ~subscribe(listener)~
+
+
+It's responsible for a lot of things.
+However, we almost never directly touch the store. Instead, we use other library such as ~ng-redux~ and ~react-redux~ for React.
+
+For now,  think ~store~ as a giant single data source like database.
+~store~ is a JavaScript object that maps a sub-state to a corresponding reducer.
+
+
+#+BEGIN_SRC javascript
+const store = {
+   todos: TodoReducer,
+   notes: NoteReducer,
+   menus: MenuReducer,
+}
+#+END_SRC
+
+you can combine store with other store. However, eventually there will be the only one final store in the application.
+So, naturally it constructs a sort of tree structure.
+
+* Using with AngularJS
+
+
+** Install
+
+#+BEGIN_SRC bash
+yarn
+#+END_SRC
+
+** Serve
+
+#+BEGIN_SRC bash
+yarn start
+#+END_SRC
+
+
+** Project Structure
+
+#+BEGIN_SRC bash :exports both :results output
+tree src
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+src
+├── app
+│   ├── root.component.html
+│   ├── root.component.js
+│   ├── root.config.js
+│   ├── root.module.js
+│   └── todo
+│       ├── redux
+│       │   ├── action
+│       │   │   ├── index.js
+│       │   │   └── types.js
+│       │   └── reducer
+│       │       └── index.js
+│       ├── todo-form
+│       │   ├── todo-form.component.html
+│       │   ├── todo-form.component.js
+│       │   └── todo-form.controller.js
+│       ├── todo-item
+│       │   ├── todo-item.component.html
+│       │   └── todo-item.component.js
+│       ├── todo-list
+│       │   ├── todo-list.component.html
+│       │   ├── todo-list.component.js
+│       │   └── todo-list.controller.js
+│       └── todo.module.js
+└── index.js
+
+8 directories, 17 files
+#+end_example
