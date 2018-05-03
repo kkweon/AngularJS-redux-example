@@ -12,7 +12,6 @@ The core idea is the *single source of truth*
 
 [[./docs/redux-flow.png]]
 
-
 ** Action
 
 Action is a JavaScript object.
@@ -83,20 +82,39 @@ However, we almost never directly touch the store. Instead, we use other library
 For now,  think ~store~ as a giant single data source like database.
 ~store~ is a JavaScript object that maps a sub-state to a corresponding reducer.
 
-
 #+BEGIN_SRC javascript
-const store = {
-   todos: TodoReducer,
-   notes: NoteReducer,
-   menus: MenuReducer,
-}
+  import { combineReducers } from "redux";
+  import middlewares from "./some-random-middlewares";
+
+  const reducers = combinReducers({
+      todo: TodoReducer,
+      notes: NoteReducer,
+      menus: MenuReducer,
+  });
+
+  const store = createStore(reducers, middlewares);
+
+
+
+  // dispatch an action
+  store.dispatch({
+      type: "ADD_TODO",
+      payload: someTodo
+  });
+
+
+  // get state
+  store.getState()
+  // {
+  //     todo: [ someTodo, ... ],
+  //     notes: ...,
+  //     menus: ...
+  // }
 #+END_SRC
 
-you can combine store with other store. However, eventually there will be the only one final store in the application.
-So, naturally it constructs a sort of tree structure.
+However, eventually there will be the only one store in the application and it takes a single (combined) reducer. There could be many nested reducers.
 
 * Using with AngularJS
-
 
 ** Install
 
@@ -109,7 +127,6 @@ yarn
 #+BEGIN_SRC bash
 yarn start
 #+END_SRC
-
 
 ** Project Structure
 
