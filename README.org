@@ -8,6 +8,10 @@ The core idea is the *single source of truth*
 
 [[./docs/why-redux.jpg]]
 
+** Redux Flow
+
+[[./docs/redux-flow.png]]
+
 
 ** Action
 
